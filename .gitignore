@@ -5,7 +5,6 @@ __pycache__/
 *.whl
 # C extensions
 *.so
-migrations/
 media/
 static/
 .idea/

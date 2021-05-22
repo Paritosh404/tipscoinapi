@@ -1,0 +1,1 @@
+web: gunicorn tipscoin.wsgi --log-file -

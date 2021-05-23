@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 media/
-static/
+
 .idea/
 # Distribution / packaging
 .Python
@@ -103,7 +103,6 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-/staticfiles
 
 # Environments
 .env

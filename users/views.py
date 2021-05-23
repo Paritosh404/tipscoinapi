@@ -4,13 +4,13 @@ from django.db.utils import DataError, Error
 from django.shortcuts import render
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from .models import UserAlert, UserData
+from .models import CoinSuggestion, UserAlert, UserData
 from coindata.models import CoinUpdate
 from rest_framework import generics
 from rest_framework import mixins, viewsets
 from django.contrib.auth.models import User
 from drf_yasg.utils import swagger_auto_schema
-from .serailizers import UserAlertSerializer, UserSerializer
+from .serailizers import UserAlertSerializer, UserSerializer, CoinSuggestionSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from drf_yasg import openapi
@@ -88,8 +88,10 @@ class UserAlertViewSet(mixins.CreateModelMixin,
             data["detail"] = "failure"
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
-from django.shortcuts import render
-from django.template import RequestContext
+class SuggestionViewSet(viewsets.GenericViewSet,mixins.ListModelMixin, mixins.CreateModelMixin):
+    queryset = CoinSuggestion.objects.all().order_by('id')
+    serializer_class = CoinSuggestionSerializer
+
 
 def handler404(request, *args, **argv):
     response = render(request, '404.html')

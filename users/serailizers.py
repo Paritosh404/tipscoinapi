@@ -1,7 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.response import Response
-from .models import UserAlert, UserData
+from .models import CoinSuggestion, UserAlert, UserData
 from coindata.models import CoinUpdate
 from django.contrib.auth.models import User
 
@@ -15,7 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             }
             
     def create(self, validated_data):
-        print('here')
         User.objects.create(username=self.validated_data['email'],password=self.validated_data['password'])
         userdata = UserData.objects.create(firstname=self.validated_data['firstname'], lastname=self.validated_data['lastname'], email=self.validated_data['email'], phone_no=self.validated_data['phone_no'], provider=self.validated_data['provider'])
         return userdata
@@ -26,7 +25,6 @@ class UserAlertSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        print('here')
         coins = CoinUpdate.objects.values('currency_name')
         fnd = False
         for i in coins:
@@ -38,3 +36,8 @@ class UserAlertSerializer(serializers.ModelSerializer):
             return useralerts
         else:
             raise serializers.ValidationError("detail: Coin Does Not exists.")
+
+class CoinSuggestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CoinSuggestion
+        fields = "__all__"

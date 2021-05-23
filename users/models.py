@@ -30,3 +30,11 @@ class UserAlert(models.Model):
         verbose_name = "UserAlert"
         verbose_name_plural = "User Alerts"
         unique_together = ('user_email', 'coin_name',)
+
+class CoinSuggestion(models.Model):
+    user_email = models.EmailField(null=True, blank=True)
+    coin_name = models.CharField(max_length=25, unique=True)
+
+    class Meta:
+        verbose_name = "Coin Suggestion"
+        verbose_name_plural = "Coin Suggestions"

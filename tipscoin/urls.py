@@ -35,7 +35,6 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 
-
 urlpatterns =[
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),

@@ -175,6 +175,7 @@ def alert_check():
 scheduler = BackgroundScheduler()
 scheduler.add_job(get_crypto_update, "interval", seconds=131, id='currency001', replace_existing=True)
 scheduler.start()
+get_crypto_update()
 
 class CurrencyView(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.RetrieveModelMixin):
     queryset = CurrencyData.objects.all().order_by('rank')

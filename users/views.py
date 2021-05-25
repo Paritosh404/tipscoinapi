@@ -3,6 +3,7 @@ from django.db.models.query import QuerySet
 from django.db.utils import DataError, Error
 from django.shortcuts import render
 from rest_framework import serializers, status
+from rest_framework import permissions
 from rest_framework.response import Response
 from .models import CoinSuggestion, UserAlert, UserData
 from coindata.models import CoinUpdate
@@ -32,6 +33,16 @@ class UserViewSet(mixins.CreateModelMixin,
     permission_classes=[IsAuthenticated,]
     lookup_field = "email"
     lookup_value_regex = "[^/]+" 
+
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.request.method == 'POST':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
     
 
 class UserAlertViewSet(mixins.CreateModelMixin,

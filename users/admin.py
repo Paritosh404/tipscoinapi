@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserAlert, UserData, models
+from .models import CoinSuggestion, UserAlert, UserData, models
 from django.forms import CheckboxSelectMultiple
 
 # Register your models here.
@@ -26,3 +26,4 @@ class UserAlertAdmin(admin.ModelAdmin):
 
 admin.site.register(UserData, UserAdmin)
 admin.site.register(UserAlert, UserAlertAdmin)
+admin.site.register(CoinSuggestion)

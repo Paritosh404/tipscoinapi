@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from .models import CoinSuggestion, UserAlert, UserData
 from coindata.models import CoinUpdate
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
@@ -12,12 +14,20 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
         extra_kwargs = {
             'password': {'write_only': True},
+            'phone_no': {'write_only': True}
             }
             
     def create(self, validated_data):
-        User.objects.create(username=self.validated_data['email'],password=self.validated_data['password'])
-        userdata = UserData.objects.create(firstname=self.validated_data['firstname'], lastname=self.validated_data['lastname'], email=self.validated_data['email'], phone_no=self.validated_data['phone_no'], provider=self.validated_data['provider'])
-        return userdata
+        usr = User.objects.create(username=self.validated_data['email'])
+        usr.set_password(validated_data['password'])
+        usr.save()
+        tkn = Token.objects.create(user=usr)
+        tkn.save()
+        validated_data.pop('password', None)
+        user = UserData(**validated_data)
+        user.save()
+        print(tkn, user)
+        return user
 
 class UserAlertSerializer(serializers.ModelSerializer):
     class Meta:

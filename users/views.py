@@ -28,6 +28,8 @@ class UserViewSet(mixins.CreateModelMixin,
                    viewsets.GenericViewSet):
     queryset = UserData.objects.all().order_by('id')
     serializer_class = UserSerializer
+    authentication_classes = [TokenAuthentication,]
+    permission_classes=[IsAuthenticated,]
     lookup_field = "email"
     lookup_value_regex = "[^/]+" 
     

@@ -29,9 +29,12 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.herokuapp.com']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'https://tipzcoin.herokuapp.com',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -70,18 +73,6 @@ REST_FRAMEWORK = {
 }
 
 
-SWAGGER_SETTINGS = {
-        'SECURITY_DEFINITIONS': {
-        'api_key': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
-        }
-    },
-    
-    'SHOW_REQUEST_HEADERS' : True
-    
-}
 
 
 

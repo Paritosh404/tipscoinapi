@@ -51,6 +51,8 @@ class UserAlertViewSet(mixins.CreateModelMixin,
                    viewsets.GenericViewSet):
     queryset = UserAlert.objects.all().order_by('id')
     serializer_class = UserAlertSerializer
+    authentication_classes = [TokenAuthentication,]
+    permission_classes=[IsAuthenticated,]
     lookup_field = "user_email"
     lookup_value_regex = "[^/]+"
 

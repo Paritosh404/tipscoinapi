@@ -173,7 +173,7 @@ def alert_check():
             render_email(message, list(str(i.email)), [])
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(get_crypto_update, "interval", seconds=136, id='currency001', replace_existing=True)
+scheduler.add_job(get_crypto_update, "interval", seconds=150, id='currency001', replace_existing=True)
 scheduler.start()
 #get_crypto_update()
 

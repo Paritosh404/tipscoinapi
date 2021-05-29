@@ -26,7 +26,6 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data.pop('password', None)
         user = UserData(**validated_data)
         user.save()
-        print(tkn, user)
         return user
 
 class UserAlertSerializer(serializers.ModelSerializer):

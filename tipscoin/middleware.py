@@ -4,10 +4,10 @@ from django.utils.deprecation import MiddlewareMixin
 class RejectSpambotRequestsMiddleware(MiddlewareMixin):
 
     def process_request(self, request): 
-        whitelist = ['tipcoinapi.herokuapp.com', 'tipzcoin.herokuapp.com']
+        whitelist1 = 'tipcoinapi.herokuapp.com'
+        whitelist2 = 'tipzcoin.herokuapp.com'
         referer = request.headers['Referer']
-        for i in whitelist:
-            if i in referer:
-                return  # reject the request and return 403 forbidden response
+        if whitelist1 in referer or whitelist2 in referer:
+            return  # reject the request and return 403 forbidden response
 
         return HttpResponseForbidden() # return None in case of a valid request

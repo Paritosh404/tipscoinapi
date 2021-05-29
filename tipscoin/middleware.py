@@ -4,7 +4,7 @@ from django.utils.deprecation import MiddlewareMixin
 class RejectSpambotRequestsMiddleware(MiddlewareMixin):
 
     def process_request(self, request): 
-        referer = request.META.get('HTTP_X_FORWARDED_FOR', None)
+        referer = request.headers
         print('HTTP_X_FORWARDED_FOR')
         print(referer)
         if referer == 'tipcoinapi.herokuapp.com' or referer == 'tipscoinapi.herokuapp.com':

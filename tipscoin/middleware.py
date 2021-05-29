@@ -5,7 +5,7 @@ class RejectSpambotRequestsMiddleware(MiddlewareMixin):
 
     def process_request(self, request): 
         print("hre") 
-        referer = request.META.get('SERVER_NAME', None)
+        referer = request.META.get('HTTP_HOST', None)
         print(referer)
         if referer == 'spambot_site_referer':
             return HttpResponseForbidden() # reject the request and return 403 forbidden response

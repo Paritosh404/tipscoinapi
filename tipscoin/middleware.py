@@ -5,6 +5,7 @@ class RejectSpambotRequestsMiddleware(MiddlewareMixin):
 
     def process_request(self, request): 
         referer = request.META.get('HTTP_HOST', None)
+        print(referer)
         if referer == 'tipcoinapi.herokuapp.com' or referer == 'tipscoinapi.herokuapp.com':
             return  # reject the request and return 403 forbidden response
 

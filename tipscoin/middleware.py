@@ -6,8 +6,15 @@ class RejectSpambotRequestsMiddleware(MiddlewareMixin):
     def process_request(self, request): 
         whitelist1 = 'tipcoinapi.herokuapp.com'
         whitelist2 = 'tipzcoin.herokuapp.com'
-        referer = request.headers['Referer']
+        try:
+            referer = request.headers['Referer']
+        except:
+            referer = request.headers['Host']
+            if referer in whitelist1 or referer in whitelist2:
+                return
+            else:
+                return HttpResponseForbidden()
         if whitelist1 in referer or whitelist2 in referer:
-            return  # reject the request and return 403 forbidden response
-
-        return HttpResponseForbidden() # return None in case of a valid request
+            return 
+        else:
+            return HttpResponseForbidden()

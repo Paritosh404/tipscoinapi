@@ -10,7 +10,8 @@ class RejectSpambotRequestsMiddleware(MiddlewareMixin):
             referer = request.headers['Referer']
         except:
             referer = request.headers['Host']
-            if referer in whitelist1 or referer in whitelist2:
+            print(referer)
+            if (referer in whitelist1 or referer in whitelist2) or (referer in whitelist1 or referer in whitelist2):
                 return
             else:
                 return HttpResponseForbidden()
